@@ -6,7 +6,7 @@ A lightweight, high-performance hash table implementation in C with support for 
 - **Language:** C
 - **License:** [Apache License 2.0](LICENSE)
 
-The only dependency is **kalloc**.
+The only dependency is **corAlloc**.
 
 ## Where it comes from
 
@@ -18,9 +18,9 @@ untouched and keeps serving its own users. `KHashTable` → `CorHashTable`,
 
 - **Fast lookups** - O(1) average case with hash code caching to minimize comparisons
 - **Power-of-2 optimization** - Uses bitmask instead of modulo when table size is a power of 2
-- **Custom allocator support** - Integrates with kalloc for memory pool allocation
+- **Custom allocator support** - Integrates with corAlloc for memory pool allocation
 - **User-defined hash and compare functions** - Full control over hashing behavior
-- **Minimal dependencies** - Only requires kalloc library
+- **Minimal dependencies** - Only requires corAlloc library
 
 ## API Reference
 
@@ -43,7 +43,7 @@ typedef struct CorHashTable CorHashTable;
 
 ```c
 CorHashTable* corHashTableCreate(
-    KAlloc*                 kaP,              // Memory allocator (NULL for malloc)
+    CorAlloc*               kaP,              // Memory allocator (NULL for malloc)
     CorHashCodeFunction     hashFunction,     // User hash function
     CorHashCompareFunction  compareFunction,  // User compare function
     int                     slots             // Number of slots (use power of 2 for best performance)
@@ -108,7 +108,7 @@ Scans all slots looking for a match. Use only when the hash code is unknown or u
 void corHashRelease(CorHashTable* hashTableP);
 ```
 
-Frees all memory used by the hash table (when using malloc, not kalloc). Note: Item data is not freed - only the hash table structures.
+Frees all memory used by the hash table (when using malloc, not corAlloc). Note: Item data is not freed - only the hash table structures.
 
 ## Performance Optimizations
 
@@ -180,7 +180,7 @@ int main(void)
 
 ## Dependencies
 
-- [kalloc](https://gitlab.com/kzangeli/kalloc) - Memory pool allocator (optional, can use malloc instead)
+- [corAlloc](https://github.com/SEAMWARE/corAlloc) - Memory pool allocator (optional, can use malloc instead)
 
 ## License
 
