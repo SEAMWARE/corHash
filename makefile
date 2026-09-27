@@ -39,7 +39,7 @@ DEPS          = $(OBJECTS:.o=.d) $(OBJDIR)/corHashTest.d
 # It stays in obj/: it is not a tool, and nothing installs it.
 #
 TEST          = $(OBJDIR)/corHashTest
-TEST_LIBS     = ../corAlloc/libcorAlloc.a ../kbase/libkbase.a -lpthread
+TEST_LIBS     = ../corAlloc/libcorAlloc.a ../corBase/libcorBase.a -lpthread
 
 all: $(LIB) $(LIB_SO) $(TEST)
 
