@@ -10,7 +10,7 @@
 #ifndef CORHASH_CORHASH_H_
 #define CORHASH_CORHASH_H_
 
-#include "kalloc/kaAlloc.h"                            // kaAlloc
+#include "corAlloc/corAlloc.h"                         // corAlloc
 
 
 
@@ -54,7 +54,7 @@ typedef struct CorHashTable
   unsigned int          mask;             // For power-of-2 sizes: arraySize-1, else 0
   CorHashCodeFunction   hashCodeFunction;
   CorHashCompareFunction  compareFunction;
-  KAlloc*               kallocP;
+  CorAlloc*             kallocP;
 } CorHashTable;
 
 
@@ -63,7 +63,7 @@ typedef struct CorHashTable
 //
 // corHashTableCreate
 //
-extern CorHashTable* corHashTableCreate(KAlloc* kaP, CorHashCodeFunction hashFunction, CorHashCompareFunction compareFunction, int slots);
+extern CorHashTable* corHashTableCreate(CorAlloc* kaP, CorHashCodeFunction hashFunction, CorHashCompareFunction compareFunction, int slots);
 
 
 

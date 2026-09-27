@@ -10,7 +10,7 @@
 #include <stdlib.h>                                    // malloc, NULL
 #include <string.h>                                    // memset
 
-#include "kalloc/kaAlloc.h"                            // kaAlloc
+#include "corAlloc/corAlloc.h"                         // corAlloc
 
 #include "corHash/corHash.h"                           // Own interface
 
@@ -25,14 +25,14 @@
 //
 // corHashTableCreate -
 //
-CorHashTable* corHashTableCreate(KAlloc* kaP, CorHashCodeFunction hashFunction, CorHashCompareFunction compareFunction, int slots)
+CorHashTable* corHashTableCreate(CorAlloc* kaP, CorHashCodeFunction hashFunction, CorHashCompareFunction compareFunction, int slots)
 {
-  CorHashTable* hashTableP = (CorHashTable*) ((kaP != NULL)? kaAlloc(kaP, sizeof(CorHashTable)) : malloc(sizeof(CorHashTable)));
+  CorHashTable* hashTableP = (CorHashTable*) ((kaP != NULL)? corAlloc(kaP, sizeof(CorHashTable)) : malloc(sizeof(CorHashTable)));
 
   if (unlikely(hashTableP == NULL))
     return NULL;
 
-  hashTableP->array = (CorHashListItem**) ((kaP != NULL)? kaAlloc(kaP, slots * sizeof(CorHashListItem*)) : malloc(slots * sizeof(CorHashListItem*)));
+  hashTableP->array = (CorHashListItem**) ((kaP != NULL)? corAlloc(kaP, slots * sizeof(CorHashListItem*)) : malloc(slots * sizeof(CorHashListItem*)));
   if (unlikely(hashTableP->array == NULL))
   {
     if (kaP == NULL)
@@ -67,7 +67,7 @@ int corHashItemAdd(CorHashTable* hashTableP, const char* itemName, void* itemDat
   unsigned int    slot;
 
   if (hashTableP->kallocP != NULL)
-    itemP = (CorHashListItem*) kaAlloc(hashTableP->kallocP, sizeof(CorHashListItem));
+    itemP = (CorHashListItem*) corAlloc(hashTableP->kallocP, sizeof(CorHashListItem));
   else
     itemP = (CorHashListItem*) malloc(sizeof(CorHashListItem));
 
