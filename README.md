@@ -6,7 +6,8 @@ A lightweight, high-performance hash table implementation in C with support for 
 - **Language:** C
 - **License:** [Apache License 2.0](LICENSE)
 
-The only dependency is **corAlloc**.
+The only dependency is **corAlloc** (and through it corBase): corHash is compiled and linked
+against it, also when every table passes `NULL` and uses malloc.
 
 ## Where it comes from
 
@@ -20,7 +21,7 @@ untouched and keeps serving its own users. `KHashTable` → `CorHashTable`,
 - **Power-of-2 optimization** - Uses bitmask instead of modulo when table size is a power of 2
 - **Custom allocator support** - Integrates with corAlloc for memory pool allocation
 - **User-defined hash and compare functions** - Full control over hashing behavior
-- **Minimal dependencies** - Only requires corAlloc library
+- **Minimal dependencies** - corAlloc (and through it corBase)
 
 ## API Reference
 
@@ -180,7 +181,8 @@ int main(void)
 
 ## Dependencies
 
-- [corAlloc](https://github.com/SEAMWARE/corAlloc) - Memory pool allocator (optional, can use malloc instead)
+- [corAlloc](https://github.com/SEAMWARE/corAlloc) - Memory pool allocator. Required to build and link; whether a table allocates from it or with malloc is chosen per table (`kaP`, `NULL` for malloc)
+- [corBase](https://github.com/SEAMWARE/corBase) - corAlloc's own dependency
 
 ## License
 
